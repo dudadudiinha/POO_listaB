@@ -2,6 +2,12 @@ from view import ContatoView
 from datetime import datetime
 
 class ContatoUI:
+
+    @classmethod
+    def menu(cls):
+        print("1-Inserir, 2-Listar, 3-Listar pelo ID, 4-Atualizar, 5-Excluir, 6-Pesquisar, 7-Aniversariantes, 8-Salvar, 9-Abrir, 10-Fim")
+        return int(input("Informe uma opção: "))
+
     @classmethod
     def main(cls):
         op = 0
@@ -14,13 +20,8 @@ class ContatoUI:
             if op == 5: cls.excluir()
             if op == 6: cls.pesquisar()
             if op == 7: cls.aniversariantes()
-            if op == 8: cls.abrir()
-            if op == 9: cls.salvar()
-
-    @classmethod
-    def menu(cls):
-        print("1-Inserir, 2-Listar, 3-Listar pelo ID, 4-Atualizar, 5-Excluir, 6-Pesquisar, 7-Aniversariantes, 8-Abrir, 9-Salvar, 10-Fim")
-        return int(input("Informe uma opção: "))
+            if op == 8: cls.salvar()
+            if op == 9: cls.abrir()
 
     @classmethod
     def inserir(cls):
@@ -29,6 +30,13 @@ class ContatoUI:
         email = input("Email: ")
         fone = input("Fone: ")
         nasc = datetime.strptime(input("Nascimento (dd/mm/aaaa): "), "%d/%m/%Y")
+        for c in ContatoView.listar():
+            if c.get_id() == id:
+                print("ID já cadastrado.")
+                return
+            if c.get_email() == email:
+                print("Email já cadastrado.")
+                return
         ContatoView.inserir(id, nome, email, fone, nasc)
 
     @classmethod

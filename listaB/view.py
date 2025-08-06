@@ -5,11 +5,6 @@ import json
 class ContatoView:
     @classmethod
     def inserir(cls, id, nome, email, fone, nasc):
-        for c in ContatoDAO.listar():
-            if c.get_id() == id:
-                raise ValueError("ID já cadastrado.")
-            if c.get_email() == email:
-                raise ValueError("Email já cadastrado.")
         contato = Contato(id, nome, email, fone, nasc)
         ContatoDAO.inserir(contato)
 
