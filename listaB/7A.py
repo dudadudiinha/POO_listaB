@@ -7,8 +7,7 @@ class Contato:
         self.__nome = n
         self.__email = e
         self.__fone = f
-        self.__nasc = b
-        self.set_nasc(self.__nasc) 
+        self.set_nasc(b) 
     
     def set_nasc(self, b):
         if b > datetime.today(): 
