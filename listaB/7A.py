@@ -185,7 +185,7 @@ class ContatoUI:
         else: print("Nenhum contato encontrado.")
 
     @staticmethod
-    def listar_id(cls):
+    def listar_id():
         id = int(input("Informe o ID: "))
         c = ContatoView.listar_id(id)
         if c: print(c)
