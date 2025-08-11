@@ -51,10 +51,9 @@ class Contato:
             "fone": self.__fone,
             "nasc": self.__nasc.strftime('%d/%m/%Y')
         }
-
+  
     @staticmethod
     def from_dict(d):
-        # nasc = datetime.strptime(d["nasc"], '%d/%m/%Y')
         return Contato(d["id"], d["nome"], d["e-mail"], d["fone"], datetime.strptime(d["nasc"], '%d/%m/%Y'))
 
 
