@@ -151,58 +151,58 @@ class ContatoView:
 
 class ContatoUI:
 
-    @classmethod
-    def menu(cls):
+    @staticmethod
+    def menu():
         return int(input("1-Inserir, 2-Listar, 3-Listar pelo ID, 4-Atualizar, 5-Excluir, 6-Fim\nInforme uma opção: "))
     
-    @classmethod
-    def main(cls):
+    @staticmethod
+    def main():
         op = 0
         while op != 6:
-            op = cls.menu()
+            op = ContatoUI.menu()
             match op:
-                case 1: cls.inserir()
-                case 2: cls.listar()
-                case 3: cls.listar_id()
-                case 4: cls.atualizar()
-                case 5: cls.excluir()
+                case 1: ContatoUI.inserir()
+                case 2: ContatoUI.listar()
+                case 3: ContatoUI.listar_id()
+                case 4: ContatoUI.atualizar()
+                case 5: ContatoUI.excluir()
 
-    @classmethod
-    def inserir(cls):
+    @staticmethod
+    def inserir():
         i = int(input("Informe o ID: "))
         n = input("Informe o nome: ")
         e = input("Informe o e-mail: ")
         f = input("Informe o fone: ")
-        b = datetime.strptime(input("Informe a data de nascimento (dd/mm/aaaa): "), "%d/%M/%Y")
+        b = datetime.strptime(input("Informe a data de nascimento (dd/mm/aaaa): "), "%d/%m/%Y")
         ContatoView.inserir(i, n, e, f, b)
 
-    @classmethod
-    def listar(cls):
+    @staticmethod
+    def listar():
         lista = ContatoView.listar()
         if lista:
             for c in lista:
                 print(c)
         else: print("Nenhum contato encontrado.")
 
-    @classmethod
+    @staticmethod
     def listar_id(cls):
         id = int(input("Informe o ID: "))
         c = ContatoView.listar_id(id)
         if c: print(c)
         else: print("Contato não encontrado.")
 
-    @classmethod
-    def atualizar(cls):
+    @staticmethod
+    def atualizar():
         i = int(input("Informe o ID: "))
         n = input("Informe o nome: ")
         e = input("Informe o e-mail: ")
         f = input("Informe o fone: ")
-        b = datetime.strptime(input("Informe a data de nascimento (dd/mm/aaaa): "), "%d/%M/%Y")
+        b = datetime.strptime(input("Informe a data de nascimento (dd/mm/aaaa): "), "%d/%m/%Y")
         if ContatoView.atualizar(i, n, e, f, b): print("Contato atualizado.")
         else: print("Contato não encontrado.")
 
-    @classmethod
-    def excluir(cls):
+    @staticmethod
+    def excluir():
         ContatoView.listar()
         id = int(input("Informe o ID do contato a ser excluído: "))
         if ContatoView.excluir(id): print("Contato excluído.")
