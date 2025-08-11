@@ -52,10 +52,10 @@ class Contato:
             "nasc": self.__nasc.strftime('%d/%m/%Y')
         }
 
-    @classmethod
-    def from_dict(cls, d):
-        nasc = datetime.strptime(d["nasc"], '%d/%m/%Y')
-        return cls(d["id"], d["nome"], d["e-mail"], d["fone"], nasc)
+    @staticmethod
+    def from_dict(d):
+        # nasc = datetime.strptime(d["nasc"], '%d/%m/%Y')
+        return Contato(d["id"], d["nome"], d["e-mail"], d["fone"], datetime.strptime(d["nasc"], '%d/%m/%Y'))
 
 
 class ContatoDAO:
@@ -63,7 +63,7 @@ class ContatoDAO:
     __arquivo = "contatos.json"
 
     @classmethod
-    def __abrir(cls, c):
+    def __abrir(cls):
         try:
             with open(cls.__arquivo, mode="r") as arquivo:
                 contatos_json = json.load(arquivo)
@@ -77,15 +77,15 @@ class ContatoDAO:
 
     @classmethod
     def __salvar(cls):
-        lista = []
-        for c in cls.__contatos:
-            lista.append(c.to_dict())
         with open(cls.__arquivo, mode="w") as arquivo:
-            json.dump(lista, arquivo)
+            json.dump(cls.__contatos, arquivo, default = Contato.to_dict)
     
     @classmethod
     def inserir(cls, contato):
         cls.__abrir()
+        for c in cls.__contatos:
+            if c.get_id() == contato.get_id():
+                raise ValueError(f"O ID {contato.get_id()} já pertence a outro contato.")
         cls.__contatos.append(contato)
         cls.__salvar()
     
@@ -106,7 +106,7 @@ class ContatoDAO:
     def atualizar(cls, contato):
         cls.__abrir()
         for c in cls.__contatos:
-            if id == contato.get_id():
+            if c.get_id() == contato.get_id():
                 c.set_nome(contato.get_nome())
                 c.set_email(contato.get_email())
                 c.set_fone(contato.get_fone())
